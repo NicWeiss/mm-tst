@@ -7,12 +7,22 @@
     color: white;
     font-size: 14pt;
   }
-  .login_title{
-    font-size: 22pt;
-  }
-  .accept_button:hover{ border: 2px solid #007E33 ;}
-  .accept_button:active{ background-color: #007E33;}
-  .flex{display: flex;}
+.accept_button:hover{ border: 2px solid #007E33 ;}
+.accept_button:active{ background-color: #007E33;}
+
+.cancel_button{ 
+  background-color: #ff4444;
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  font-size: 14pt;
+}
+.cancel_button:hover{ border: 2px solid #CC0000 ;}
+.cancel_button:active{ background-color: #CC0000;}
+
+.flex{display: flex;}
 .flex_center{justify-content: center;}
 .flex_column{flex-direction: column;}
 .flex_between{justify-content: space-between;}

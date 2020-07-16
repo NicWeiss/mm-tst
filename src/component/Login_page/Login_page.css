@@ -1,5 +1,8 @@
 .login_form{width: 300px;}
 .login_element{margin: 10px 0; height: 40px;}
+.login_title{
+  font-size: 22pt;
+}
 .grid{ 
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;

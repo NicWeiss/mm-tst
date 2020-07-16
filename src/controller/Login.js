@@ -13,6 +13,11 @@ export const login_in = () =>{
     return true
 }
 
+export const login_out = () =>{
+    set_isLogout()
+    return true
+}
+
 const set_isAuthorized = () => {
     const cookies = new Cookies();
     cookies.set('isAuthorized', true,  { path: '/' });
