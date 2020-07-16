@@ -1,0 +1,8 @@
+.login_form{width: 300px;}
+.login_element{margin: 10px 0; height: 40px;}
+.grid{ 
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
+  height: 100vh;
+  }
