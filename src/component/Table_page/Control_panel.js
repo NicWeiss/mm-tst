@@ -14,7 +14,7 @@ const Panel = ({onAdd=f=>f, onChange=f=>f}) => {
     }
 
     return(
-        <div className="flex flex_between">
+        <div className="flex flex_between controlPanel">
             <input className="search_box" 
                 ref={input => _search_text = input} 
                 onChange={() => onChange(_search_text.value)} 

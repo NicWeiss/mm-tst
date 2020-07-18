@@ -48,6 +48,34 @@ class MainTable extends Component {
 
   componentWillUpdate(){
     console.log(this.props.data.request_filter);
+    console.log('update');
+    
+
+    var data = [
+      {
+        "id": "123fn",
+        "name": "KPT-8",
+        "amount": "1",
+        "cost": "42",
+        "datetime": "10.01.2020 18:00"
+      },
+      {
+        "id": "23ef",
+        "name": "keyboard",
+        "amount": "5",
+        "cost": "36",
+        "datetime": "10.01.2020 18:00"
+      },
+      {
+        "id": "jn6554",
+        "name": "mouse",
+        "amount": "7",
+        "cost": "10",
+        "datetime": "10.01.2020 18:00"
+      }
+    ]
+    
+    this.state.product = data
   }
 
   saveOnEnter(e){
@@ -72,19 +100,22 @@ class MainTable extends Component {
   edit(id){
 
     const product = this.state.product.map(product  => 
-      (product.id == id && !product.name.props) ? 
+      (product.id === id && !product.name.props) ? 
           {
             ...product,
-          name : <input ref={this.edited_name} 
+          name : <input className="table_edit" 
+                        ref={this.edited_name} 
                         type="text" 
                         defaultValue={product.name} 
                         onKeyDown={this.saveOnEnter} />,
-          amount : <input ref={this.edited_amount} 
-                          type="text" 
+          amount : <input className="table_edit" 
+                          ref={this.edited_amount} 
+                          type="number" 
                           defaultValue={product.amount}
                           onKeyDown={this.saveOnEnter}/>,
-          cost : <input ref={this.edited_cost} 
-                        type="text" 
+          cost : <input className="table_edit" 
+                        ref={this.edited_cost} 
+                        type="number" 
                         defaultValue={product.cost}
                         onKeyDown={this.saveOnEnter}/>
           } : (product.id !== id && product.name.props) ?  {
@@ -104,11 +135,11 @@ class MainTable extends Component {
         <table>
           <tbody>
             <tr>
-              <td>Название товара {this.props.data.update}</td>
-              <td>Колличество (шт)</td>
-              <td>Цена (руб)</td>
-              <td>Дата и время добавления</td>
-              <td></td>
+              <th>Название товара {this.props.data.update}</th>
+              <th>Колличество (шт)</th>
+              <th>Цена (руб)</th>
+              <th>Дата и время добавления</th>
+              <th></th>
             </tr>
             {this.state.product.map((el, i) => 
               <TableRow key={i} {...el} onEdit={this.edit} />

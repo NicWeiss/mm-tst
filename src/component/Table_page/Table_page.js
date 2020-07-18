@@ -29,10 +29,12 @@ class Page extends Component {
 
   render() {
     return(
-        <div>
-            <div>Товары</div>
-            <ControlPanel onAdd={this.add} onChange={this.getFilter}/>
-            <Table data={this.state}/>
+        <div className="container flex flex flex_center ">
+            <div className=" product_view">
+                <div><h1>Товары</h1></div>
+                <ControlPanel onAdd={this.add} onChange={this.getFilter}/>
+                <Table data={this.state}/>
+            </div>
         </div>
         )
     }

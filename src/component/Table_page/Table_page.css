@@ -2,3 +2,41 @@
     height: 30px;
     width: 116px;
 }
+
+table{
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: 100%;
+}
+td{
+    border-bottom: solid 1px black;
+    background-color: white;
+}
+th{
+    background-color: #c0c0c0;
+    padding: 15px 0 5px 0;
+}
+html{
+    background-color: #c0c0c0;
+}
+.controlPanel{
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+.product_view{
+    margin: 10px;
+    min-width: 700px;
+    width: 1500px;
+}
+.container{
+    width: 100%;
+}
+.table_edit{
+    width: 100%;
+    background-color: linen;
+    border: solid lightskyblue 2px;
+}
+.data{
+    min-width: 180px;
+}

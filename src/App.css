@@ -6,6 +6,7 @@
     cursor: pointer;
     color: white;
     font-size: 14pt;
+    margin: 0 5px;
   }
 .accept_button:hover{ border: 2px solid #007E33 ;}
 .accept_button:active{ background-color: #007E33;}
@@ -18,6 +19,7 @@
   cursor: pointer;
   color: white;
   font-size: 14pt;
+  margin: 0 5px;
 }
 .cancel_button:hover{ border: 2px solid #CC0000 ;}
 .cancel_button:active{ background-color: #CC0000;}
