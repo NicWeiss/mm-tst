@@ -9,12 +9,19 @@ class FormForLogin extends Component {
         super(props)
         this.sumbit = this.sumbit.bind(this)
         this.pass = React.createRef()
+        this.state = {
+            display: "none"
+        }
     }
     sumbit(e) {
         e.preventDefault();
         const _pass = this.pass.current
-        login_process(_pass.value)
         _pass.focus()
+        login_in(_pass.value).then(
+            members => (members) ? 
+                window.location.reload(true) : 
+                this.setState({display : "block"})
+          )
     }
     render() {
         return(
@@ -24,6 +31,9 @@ class FormForLogin extends Component {
                     <form className="flex flex_column   login_form">
                         <div className="text_center login_title">Вход</div>
                         <input className="login_element" ref={this.pass} type="password" placeholder="введите пароль" required/>
+                        <p  className="wrong_pass" 
+                            style={{"display": this.state.display}}>
+                        неверный пароль</p>
                         <button className="login_element accept_button" onClick={this.sumbit}>Войти</button>
                     </form>
                 </div>
@@ -33,10 +43,6 @@ class FormForLogin extends Component {
     }
 }
 
-const login_process = (pass) =>{
-    var ifSuccess = login_in(pass)
-    if (ifSuccess) window.location.reload(true);
-}
 
 function LoginForm() {
     return (<FormForLogin />);

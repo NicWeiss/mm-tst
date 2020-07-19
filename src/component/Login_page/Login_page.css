@@ -9,3 +9,8 @@
   grid-template-columns: 1fr;
   height: 100vh;
   }
+
+  .wrong_pass{
+    color: red;
+    text-align: center;
+  }

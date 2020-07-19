@@ -120,9 +120,9 @@ class MainTable extends Component {
                         onKeyDown={this.saveOnEnter}/>
           } : (product.id !== id && product.name.props) ?  {
                 ...product,
-                name : this.edited_name.current.defaultValue,
-                amount: this.edited_amount.current.defaultValue,
-                cost: this.edited_cost.current.defaultValue,
+                name : this.edited_name.current.value,
+                amount: this.edited_amount.current.value,
+                cost: this.edited_cost.current.value,
           } : product
           
     )
