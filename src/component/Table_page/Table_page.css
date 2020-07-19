@@ -10,7 +10,12 @@ table{
 }
 td{
     border-bottom: solid 1px black;
+}
+tr{
     background-color: white;
+}
+tr:hover{
+    background-color: rgb(184, 186, 218);
 }
 th{
     background-color: #c0c0c0;
@@ -39,4 +44,17 @@ html{
 }
 .data{
     min-width: 180px;
+}
+
+.del{
+    background-color: white;
+    color: red;
+    border: red solid 1px;
+    margin: 2px;
+    padding: 2px 6px;
+    cursor: pointer;
+}
+.del:hover{
+    background-color: red;
+    color: white
 }

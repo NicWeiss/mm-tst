@@ -10,7 +10,8 @@ class Page extends Component {
         super(props)
         this.state = {
           update: "false",
-          request_filter: ""
+          request_filter: "",
+          do_search: false
         }
         this.add = this.add.bind(this)
         this.getFilter = this.getFilter.bind(this)
@@ -22,8 +23,8 @@ class Page extends Component {
     }
 
     getFilter(text){
-        console.log('set request filter');
-        this.setState({request_filter: text})
+        console.log('set request filter: '+text);
+        this.setState({request_filter: text, do_search: true})
         
     }
 
