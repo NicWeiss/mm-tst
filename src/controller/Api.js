@@ -1,5 +1,5 @@
 
-//Connect Promise this
+//Promise для подключения к бэкэнду
 const requesrApi = (method, data) => new Promise((resolves, rejects) => {
     const url = 'http://motmom-back.lo/api/' + method
     console.log(url);
@@ -13,6 +13,10 @@ const requesrApi = (method, data) => new Promise((resolves, rejects) => {
     request.send(JSON.stringify(data));
 })
 
+/** Авторизация
+ * 
+ * @param {*} pass 
+ */
 export const login = (pass) =>
     requesrApi('login', { password: pass }).then(
         answer => {
@@ -20,7 +24,10 @@ export const login = (pass) =>
         }
     )
 
-
+/** Запрос списка товаров
+ * 
+ * @param {*} text 
+ */
 export const get_products = (text) =>
     requesrApi('get_products', { filter: text }).then(
         answer => {
@@ -28,6 +35,9 @@ export const get_products = (text) =>
         }
     )
 
+/** Добавление нового пустого продукта
+ * 
+ */
 export const add_product = () =>
     requesrApi('add_product', {}).then(
         answer => {
@@ -35,10 +45,24 @@ export const add_product = () =>
         }
     )
 
-export const update_product = (product) => {
+/** обновление существующего товара
+ * 
+ * @param {*} product 
+ */
+export const update_product = (product) =>
+    requesrApi('edit_product', { product: product }).then(
+        answer => {
+            return answer
+        }
+    )
 
-}
-
-export const delete_product = (id) => {
-
-}
+/** Удаление товара
+ * 
+ * @param {*} id 
+ */
+export const delete_product = (id) =>
+    requesrApi('remove_product', { id: id }).then(
+        answer => {
+            return answer
+        }
+    )
