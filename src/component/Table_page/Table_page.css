@@ -51,8 +51,9 @@ html{
     color: red;
     border: red solid 1px;
     margin: 2px;
-    padding: 2px 6px;
+    padding: 2px 2px;
     cursor: pointer;
+    text-align: center;
 }
 .del:hover{
     background-color: red;
