@@ -30,7 +30,7 @@ class MainTable extends Component {
     //Получаем список продуктов с сервера
     get_products('').then(
       answer => {
-        this.setState({ product: answer })
+        if(answer)this.setState({ product: answer })
       })
   }
 
@@ -43,7 +43,7 @@ class MainTable extends Component {
         answer => {
           this.props.data.do_search = false
           this.state.last_search_text = this.props.data.request_filter
-          this.setState({ product: answer })
+          if(answer)this.setState({ product: answer })
         })
     }
 
@@ -52,7 +52,7 @@ class MainTable extends Component {
       this.props.data.update = false
       get_products('').then(
         answer => {
-          this.setState({ product: answer })
+          if(answer)this.setState({ product: answer })
           this.props.data.update = false
         })
     }

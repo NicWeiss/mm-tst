@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 
 //Promise для подключения к бэкэнду
 const requesrApi = (method, data) => new Promise((resolves, rejects) => {
@@ -21,7 +22,8 @@ export const login = (pass) =>
     requesrApi('login', { password: pass }).then(
         answer => {
             if (answer.status == 200) { return true } else { return false }
-        }
+        },
+        error =>{ toast.error('Network error'); return false}
     )
 
 /** Запрос списка товаров
@@ -32,7 +34,8 @@ export const get_products = (text) =>
     requesrApi('get_products', { filter: text }).then(
         answer => {
             return answer
-        }
+        },
+        error =>{ toast.error('Network error'); return false}
     )
 
 /** Добавление нового пустого продукта
@@ -42,7 +45,8 @@ export const add_product = () =>
     requesrApi('add_product', {}).then(
         answer => {
             return answer
-        }
+        },
+        error =>{ toast.error('Network error'); return false}
     )
 
 /** обновление существующего товара
@@ -53,7 +57,8 @@ export const update_product = (product) =>
     requesrApi('edit_product', { product: product }).then(
         answer => {
             return answer
-        }
+        },
+        error =>{ toast.error('Network error'); return false}
     )
 
 /** Удаление товара
@@ -64,5 +69,6 @@ export const delete_product = (id) =>
     requesrApi('remove_product', { id: id }).then(
         answer => {
             return answer
-        }
+        },
+        error =>{ toast.error('Network error'); return false}
     )
