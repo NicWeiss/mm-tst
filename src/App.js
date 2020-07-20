@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css'
-import 'react-notifications/lib/notifications.css';
 import { login_check } from './controller/Login';
 import LoginPage from './component/Login_page/Login_form'
 import TablePage from './component/Table_page/Table_page'
