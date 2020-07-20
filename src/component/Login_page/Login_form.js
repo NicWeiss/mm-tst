@@ -18,7 +18,7 @@ class FormForLogin extends Component {
         const _pass = this.pass.current
         _pass.focus()
         login_in(_pass.value).then(
-            members => (members) ? 
+            answer => (answer) ? 
                 window.location.reload(true) : 
                 this.setState({display : "block"})
           )
