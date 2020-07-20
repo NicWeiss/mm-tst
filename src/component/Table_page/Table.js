@@ -16,6 +16,7 @@ class MainTable extends Component {
     }
     this.edit = this.edit.bind(this)
     this.saveOnEnter = this.saveOnEnter.bind(this)
+    this.blur = this.blur.bind(this)
     this.edit_process = this.edit_process.bind(this)
     this.try_write_changes = this.try_write_changes.bind(this)
     this.del = this.del.bind(this)
@@ -135,6 +136,14 @@ class MainTable extends Component {
       const product = this.edit_process()
       this.setState({ product: product })
     }
+  }
+
+ /**
+  * сохраняем изменения по событию onBlur
+  */
+  blur() {
+      const product = this.edit_process()
+      this.setState({ product: product })
   }
 
   /**функция запускается по нажатию на строку таблицы
@@ -289,7 +298,7 @@ class MainTable extends Component {
               <th></th>
             </tr>
             {this.state.product.map((el, i) =>
-              <TableRow key={i} {...el} onEdit={this.edit} onDel={this.del} />
+              <TableRow key={i} {...el} onEdit={this.edit} onBlur={this.blur} onDel={this.del} />
             )}
           </tbody>
         </table>
