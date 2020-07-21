@@ -1,4 +1,3 @@
-import React from 'react';
 import Cookies from 'universal-cookie';
 import {login} from './Api'
 
@@ -8,7 +7,7 @@ import {login} from './Api'
 export const login_check = () =>{
     const cookies = new Cookies();
     var isAuthorized = cookies.get('isAuthorized')
-    var output = (isAuthorized == 'true') ? true :false
+    var output = (isAuthorized === 'true') ? true :false
     return output
 }
 

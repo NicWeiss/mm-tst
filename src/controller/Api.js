@@ -8,7 +8,7 @@ const requesrApi = (method, data) => new Promise((resolves, rejects) => {
     const request = new XMLHttpRequest()
     request.open('POST', url, false)
 
-    request.onload = () => (request.status == 200) ?
+    request.onload = () => (request.status === 200) ?
         resolves(JSON.parse(request.response)) :
         rejects(Error(rejects.statusText).results)
     request.send(JSON.stringify(data));
@@ -21,7 +21,7 @@ const requesrApi = (method, data) => new Promise((resolves, rejects) => {
 export const login = (pass) =>
     requesrApi('login', { password: pass }).then(
         answer => {
-            if (answer.status == 200) { return true } else { return false }
+            if (answer.status === 200) { return true } else { return false }
         },
         error =>{ toast.error('Network error'); return false}
     )

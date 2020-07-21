@@ -18,19 +18,16 @@ class MainTable extends Component {
     this.saveOnEnter = this.saveOnEnter.bind(this)
     this.blur = this.blur.bind(this)
     this.edit_process = this.edit_process.bind(this)
-    this.try_write_changes = this.try_write_changes.bind(this)
+    //this.try_write_changes = this.try_write_changes.bind(this)
     this.del = this.del.bind(this)
-    this.edited_name = React.createRef()
-    this.edited_amount = React.createRef()
-    this.edited_cost = React.createRef()
-    this.edited_datetime = React.createRef()
+    this.my_input_value = React.createRef()
   }
 
   componentWillMount() {
     //Получаем список продуктов с сервера
     get_products('').then(
       answer => {
-        if(answer)this.setState({ product: answer })
+        if (answer) this.setState({ product: answer })
       })
   }
 
@@ -38,12 +35,12 @@ class MainTable extends Component {
     //Обновление
 
     //Запрос данных с сервера используя поиск
-    if (this.props.data.do_search == true && this.props.data.request_filter !== this.state.last_search_text) {
+    if (this.props.data.do_search === true && this.props.data.request_filter !== this.state.last_search_text) {
       get_products(this.props.data.request_filter).then(
         answer => {
           this.props.data.do_search = false
           this.state.last_search_text = this.props.data.request_filter
-          if(answer)this.setState({ product: answer })
+          if (answer) this.setState({ product: answer })
         })
     }
 
@@ -52,78 +49,10 @@ class MainTable extends Component {
       this.props.data.update = false
       get_products('').then(
         answer => {
-          if(answer)this.setState({ product: answer })
+          if (answer) this.setState({ product: answer })
           this.props.data.update = false
         })
     }
-  }
-
-  /** Получение изменённых данных и отправка на сервер для сохранения
-   * 
-   * @param {*} products 
-   */
-  try_write_changes(products) {
-    //ищем объект с изменением
-    const prepare = products.filter(products =>
-      (products.new_name ||
-        products.new_amount ||
-        products.new_cost ||
-        products.new_datetime) ? { ...products } : ""
-    )
-
-    //ищем изменение и отправляем на сервер
-    if (prepare.length > 0) {
-
-      const get_changes =
-        (prepare['0'].new_name) ?
-          {
-            "id": prepare['0'].id,
-            "key": 'name',
-            "value": prepare['0'].new_name
-          } :
-          (prepare['0'].new_amount) ?
-            {
-              "id": prepare['0'].id,
-              "key": 'amount',
-              "value": prepare['0'].new_amount
-            } :
-            (prepare['0'].new_cost) ?
-              {
-                "id": prepare['0'].id,
-                "key": 'cost',
-                "value": prepare['0'].new_cost
-              } :
-              (prepare['0'].new_datetime) ?
-                {
-                  "id": prepare['0'].id,
-                  "key": 'datetime',
-                  "value": prepare['0'].new_datetime
-                } : "none"
-
-      update_product(get_changes).then(
-        answer => {
-          if (answer.status === 'success') {
-            get_products('').then(
-              answer => {
-                this.setState({ product: answer })
-              })
-          } else {
-            toast.error(answer.message, {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
-          }
-        }
-
-      )
-    }
-
-
   }
 
   /** Обрабатываем Enter
@@ -131,19 +60,20 @@ class MainTable extends Component {
    * @param {*} e 
    */
   saveOnEnter(e) {
-
+    const id = e.target.id
+    const type = e.target.className
     if (e.key === 'Enter' || e === 'Enter') {
-      const product = this.edit_process()
+      const product = this.edit_process(id, type, true)
       this.setState({ product: product })
     }
   }
 
- /**
-  * сохраняем изменения по событию onBlur
-  */
+  /**
+   * сохраняем изменения по событию onBlur
+   */
   blur() {
-      const product = this.edit_process()
-      this.setState({ product: product })
+    const product = this.edit_process()
+    this.setState({ product: product })
   }
 
   /**функция запускается по нажатию на строку таблицы
@@ -177,108 +107,63 @@ class MainTable extends Component {
    * @param {*} id 
    * @param {*} type 
    */
-  edit_process(id = '0', type = "none") {
+  edit_process(id = '0', type = "none", enter = false) {
     var reclick = false
 
     //данный перебор позволяет не ставить input там где он уже есть
     this.state.product.forEach(product => {
-      if (product.id === id && type === "name" && product.name.props) {
-        reclick = true
-      }
-      if (product.id === id && type === "amount" && product.amount.props) {
-        reclick = true
-      }
-      if (product.id === id && type === "cost" && product.cost.props) {
-        reclick = true
-      }
-      if (product.id === id && type === "datetime" && product.datetime.props) {
+      if (product.id === id && product[type].props) {
         reclick = true
       }
     })
-    if (reclick) return (this.state.product)
+    if (reclick && !enter) return (this.state.product)
 
-    //возвращаем данные к исходному вмду и записываем предыдущие изменения
-    var edited_products = this.state.product.map(product =>
-      (product.name.props) ?
-        {
-          ...product,
-          name: this.edited_name.current.defaultValue,
-          "new_name": this.edited_name.current.value
-        } :
-        (product.amount.props) ?
-          {
-            ...product,
-            amount: this.edited_amount.current.defaultValue,
-            "new_amount": this.edited_amount.current.value
-          } :
-          (product.cost.props) ?
-            {
-              ...product,
-              cost: this.edited_cost.current.defaultValue,
-              "new_cost": this.edited_cost.current.value
-            } :
-            (product.datetime.props) ?
-              {
-                ...product,
-                datetime: this.edited_datetime.current.defaultValue,
-                "new_datetime": this.edited_datetime.current.value
-              } : { ...product }
-    )
-
-    //пробуем сохранить изменённые данные
-    this.try_write_changes(edited_products)
-
-    //очищаем массив от побочных строк для записи
-    edited_products.forEach(product =>
-      ("new_name" in product) ? delete product.new_name :
-        ("new_amount" in product) ? delete product.new_amount :
-          ("new_cost" in product) ? delete product.new_cost :
-            ("new_datetime" in product) ? delete product.new_datetime : ""
-
-    )
+    //возвращаем данные к исходному виду и  если есть изменения отправляем на сервер
+    let edited_products = this.state.product.map(product => {
+      const field = {}, fields = []
+      for (const [key, value] of Object.entries(product)) {
+        if (value.props) {
+          if (this.my_input_value.current.value !== this.my_input_value.current.defaultValue) {
+            const changes = {
+              "id": product.id,
+              "key": key,
+              "value": this.my_input_value.current.value
+            }
+            update_product(changes).then(
+              answer => {
+                if (answer.status === 'success') {
+                  get_products('').then(
+                    answer => {
+                      this.setState({ product: answer })
+                    })
+                } else {
+                  toast.error(answer.message);
+                }
+              }
+            )
+          }
+          field[key] = this.my_input_value.current.defaultValue
+        } else {
+          field[key] = value
+        }
+        fields.push(field)
+      }
+      return field
+    })
 
     //формируем новые данные на основе действий пользователя
-    const new_edit_field = edited_products.map(product =>
-      (product.id === id) ?
-        (type === "name") ?
-          {
-            ...product,
-            name: <input autoFocus={true} className="table_edit"
-              ref={this.edited_name}
-              type="text"
-              defaultValue={product.name}
-              onKeyDown={this.saveOnEnter} />
-          } :
-          (type === "amount") ?
-            {
-              ...product,
-              amount: <input autoFocus={true} className="table_edit"
-                ref={this.edited_amount}
-                type="number"
-                defaultValue={product.amount}
-                onKeyDown={this.saveOnEnter} />
-            } :
-            (type === "cost") ?
-              {
-                ...product,
-                cost: <input autoFocus={true} className="table_edit"
-                  ref={this.edited_cost}
-                  type="number"
-                  defaultValue={product.cost}
-                  onKeyDown={this.saveOnEnter} />
-              } :
-              (type === "datetime") ?
-                {
-                  ...product,
-                  datetime: <input autoFocus={true} className="table_datetime"
-                    ref={this.edited_datetime}
-                    type="text"
-                    defaultValue={product.datetime}
-                    onKeyDown={this.saveOnEnter} />
-                } : ""
-        : { ...product }
-
-    )
+    const new_edit_field = edited_products.map(product => {
+      if (product.id === id) {
+        product[type] = <input autoFocus={true}
+          ref={this.my_input_value}
+          type="text"
+          id={id}
+          className={type}
+          defaultValue={product[type]}
+          onKeyDown={this.saveOnEnter} />
+      }
+      return product
+    })
     return (new_edit_field)
   }
 
@@ -307,9 +192,4 @@ class MainTable extends Component {
   }
 }
 
-
-
-
-
 export default MainTable;
-
