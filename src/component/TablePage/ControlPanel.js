@@ -1,5 +1,5 @@
 import React from 'react';
-import './Table_page.css'
+import './TablePage.css'
 import { login_out } from '../../controller/Login'
 
 

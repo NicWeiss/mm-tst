@@ -1,5 +1,5 @@
 import React from 'react';
-import './Login_page.css';
+import './LoginPage.css';
 import { Component } from 'react'
 import { login_in } from '../../controller/Login'
 import { ToastContainer, toast } from 'react-toastify';

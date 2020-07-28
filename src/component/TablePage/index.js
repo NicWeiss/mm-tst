@@ -1,5 +1,5 @@
 import React from 'react';
-import ControlPanel from './Control_panel'
+import ControlPanel from './ControlPanel'
 import Table from './Table'
 import { Component } from 'react'
 import { add_product } from '../../controller/Api'

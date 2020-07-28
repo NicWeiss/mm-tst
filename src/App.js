@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css'
 import { login_check } from './controller/Login';
-import LoginPage from './component/Login_page/Login_form'
-import TablePage from './component/Table_page/Table_page'
+import LoginPage from './component/LoginPage'
+import TablePage from './component/TablePage'
 
 function App() {
 

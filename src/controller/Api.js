@@ -18,7 +18,7 @@ const requesrApi = (method, data) => new Promise((resolves, rejects) => {
  * 
  * @param {*} pass 
  */
-export const login = (pass) =>
+export const login = (pass = "") =>
     requesrApi('login', { password: pass }).then(
         answer => {
             if (answer.status === 200) { return true } else { return false }
@@ -30,7 +30,7 @@ export const login = (pass) =>
  * 
  * @param {*} text 
  */
-export const get_products = (text) =>
+export const get_products = (text = "") =>
     requesrApi('get_products', { filter: text }).then(
         answer => {
             return answer
@@ -53,7 +53,7 @@ export const add_product = () =>
  * 
  * @param {*} product 
  */
-export const update_product = (product) =>
+export const update_product = (product = {}) =>
     requesrApi('edit_product', { product: product }).then(
         answer => {
             return answer
@@ -65,7 +65,7 @@ export const update_product = (product) =>
  * 
  * @param {*} id 
  */
-export const delete_product = (id) =>
+export const delete_product = (id = "") =>
     requesrApi('remove_product', { id: id }).then(
         answer => {
             return answer
