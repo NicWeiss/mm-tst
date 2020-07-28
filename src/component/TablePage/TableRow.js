@@ -1,5 +1,6 @@
 import React from 'react';
 import Cell from './Cell'
+import CellDell from './CellDell'
 import { Component } from 'react'
 
 
@@ -14,12 +15,13 @@ class TableRow extends Component{
     let id = 0
     for (const[key,value] of Object.entries(this.props.rowData)){
       if (key === "id"){
-        id = key
+        id = value
         continue
       }
       array.push(<Cell key={i} id={id} type={key} data={value}/>)
       i++
   }
+  array.push(<CellDell key={i} id={id} type="del" data=""/>)
   return array
 }
 
