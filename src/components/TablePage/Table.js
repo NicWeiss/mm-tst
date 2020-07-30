@@ -7,9 +7,6 @@ import '../../../node_modules/react-toastify/dist/ReactToastify.css';
 
 
 class MainTable extends Component {
-  constructor(props) {
-    super(props)
-  }
 
   render() {
     return (
