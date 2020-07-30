@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import './App.css'
-import {
-  Route,
-  Switch,
-  Redirect,
-  withRouter
-} from "react-router-dom"
+import { Route, Switch, Redirect, withRouter } from "react-router-dom"
 
 import Login from './components/LoginPage'
 import Table from './components/TablePage'
+import MobxTest from './components/MobxTest'
 
 
 class App extends Component {
@@ -20,6 +16,7 @@ class App extends Component {
         <Switch>
           <Route history={history} path='/login' component={Login} />
           <Route history={history} path='/table' component={Table} />
+          <Route history={history} path='/test' component={MobxTest} />
           <Redirect from="/" to='/login' />
         </Switch>
       </div>

@@ -4,9 +4,6 @@ import { delete_product } from '../../controller/Api'
 import { toast } from 'react-toastify';
 
 class CellDel extends Component {
-    constructor(props) {
-        super(props)
-    }
 
     del = () => {
         delete_product(this.props.id).then(

@@ -3,10 +3,8 @@ import { toast } from 'react-toastify';
 //Promise для подключения к бэкэнду
 const requesrApi = (method, data) => new Promise((resolves, rejects) => {
     const url = 'http://motmom-back.lo/api/' + method
-
     const request = new XMLHttpRequest()
     request.open('POST', url, false)
-
     request.onload = () => (request.status === 200) ?
         resolves(JSON.parse(request.response)) :
         rejects(Error(rejects.statusText).results)
