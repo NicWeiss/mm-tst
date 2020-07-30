@@ -1,15 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css'
-import { login_check } from './controller/Login';
-import LoginPage from './component/LoginPage'
-import TablePage from './component/TablePage'
+import {
+  Route,
+  Switch,
+  Redirect,
+  withRouter
+} from "react-router-dom"
 
-function App() {
+import Login from './components/LoginPage'
+import Table from './components/TablePage'
 
-  var ifLogin = login_check()
-  var output = (ifLogin) ? <TablePage /> : <LoginPage />
-  return (output);
+
+class App extends Component {
+  render(){
+    const { history } = this.props
+
+    return(
+      <div className="App">
+        <Switch>
+          <Route history={history} path='/login' component={Login} />
+          <Route history={history} path='/table' component={Table} />
+          <Redirect from="/" to='/login' />
+        </Switch>
+      </div>
+    )
+  }
 }
 
-export default App;
+
+
+
+export default withRouter(App);
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import './LoginPage.css';
 import { Component } from 'react'
-import { login_in } from '../../controller/Login'
+import { login_in, login_check } from '../../controller/Login'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -18,7 +18,7 @@ class FormForLogin extends Component {
         _pass.focus()
         login_in(_pass.value).then(
             answer =>{ if(answer) {
-                window.location.reload(true) 
+                document.location.href="/table"
             }else{
                 toast.error('Неверный пароль', {
                     position: "top-center",
@@ -33,12 +33,13 @@ class FormForLogin extends Component {
         })
     }
     render() {
+        if(login_check())document.location.href="/table"
         return (
             <div className="grid">
                 <div></div>
                 <div className="container flex flex_center">
                     <form className="flex flex_column   login_form">
-                        <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false}
+                        <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false}
                             newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable
                             pauseOnHover />
                         <div className="text_center login_title">Вход</div>

@@ -4,6 +4,8 @@ import Table from './Table'
 import { Component } from 'react'
 import { add_product, get_products } from '../../controller/Api'
 import { toast } from 'react-toastify';
+import { login_check } from '../../controller/Login'
+
 
 class Page extends Component {
 
@@ -43,7 +45,7 @@ class Page extends Component {
     }
 
     render() {
-        //console.log(this.state.products);
+        if(!login_check())document.location.href="/login"
         return (
             <div className="container flex flex flex_center ">
                 <div className=" product_view">
